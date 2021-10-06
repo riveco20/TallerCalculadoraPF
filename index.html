@@ -1,45 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-        Numero 1: <input type="text" name="num1" id="num1"><br>
-        Numero 2: <input type="text" name="num2" id="num2">
-        <br><br>
-        <input type="submit" value="calcular operaciones" onClick="calcular()">
+    Numero 1: <input type="text" name="num1" id="num1"><br>
+    Numero 2: <input type="text" name="num2" id="num2">
+    <br><br>
+    <input type="submit" value="calcular operaciones" onClick="calcular()">
     <script>
-        function calcular(){
+        function calcular() {
             const x = +document.getElementById('num1').value;
             const y = +document.getElementById('num2').value;
 
             let sumaXY = suma(x, y);
             let restaXY = resta(x, y);
             let multiplicacionXY = multiplicacion(x, y);
-            let divisionXY = division(x, y, 0);
-
-            alert("Suma: " + sumaXY + "\nResta: " + restaXY + "\nMultiplicación: " + multiplicacionXY + "\nDivisión: " + divisionXY); 
+            let divisionXY = division(x, y);
+            alert("Suma: " + sumaXY + "\nResta: " + restaXY + "\nMultiplicación: " + multiplicacionXY + "\nDivisión: " + divisionXY);
         }
+        function suma(x, y) {
+    return x + y;
+}
 
-        function suma(x, y){
-            return x + y;
-        }
+function resta(x, y) {
+    return x - y;
+}
 
-        function resta(x, y){
-            return x - y;
-        }   
+function multiplicacion(x, y) {
 
-        function multiplicacion(x, y){
-            
-        }
+    if (y == 0 || x == 0) {
+        return 0;
+    }
 
-        function division(x, y, cociente){
-            
-        }
-        
+    if (y == 1) {
+        return x;
+    }
+
+    if (x == 1) {
+        return y;
+    }
+
+    if (x < 0 && y > 0) {
+        return suma(x, multiplicacion(x, y - 1));
+    }
+
+    if (x > 0 && y < 0) {
+        return suma(y, multiplicacion(y, x - 1));
+    }
+
+    if (x < 0) {
+        var temp = x;
+        x = resta(x, temp);
+        x = resta(x, temp);
+    }
+
+    if (y < 0) {
+        var temp = y;
+        y = resta(y, temp);
+        y = resta(y, temp);
+    }
+
+    return suma(x, multiplicacion(x, y - 1));
+
+}
+
+
+function division(x, y) {
+
+    return div(x, y, 0);
+
+}
+
+function div(x, y, cociente) {
+
+    if (y == 1) {
+        return x;
+    }
+    if(y<=0){
+        return "Esta calculadora no cubre esa operacion"
+    }
+  
+    var multrest = multiplicacion(y, cociente);
+    if (multrest == x) {
+        return cociente;
+    }
+
+    if (multiplicacion(y, cociente + 1) > x) {
+        console.log("residuo: "+resta(x,multrest));
+        return cociente;
+    }
+
+
+
+    return div(x, y, cociente + 1);
+}
+
     </script>
 </body>
+
 </html>
