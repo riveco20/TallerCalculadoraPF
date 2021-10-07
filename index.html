@@ -39,10 +39,11 @@
         
 
         const multiplicacion = (x, y) =>{
-            if(y==0)
+            if(y==0){
                 return 0
+            }
             let arreglo = new Array(y);
-            return arreglo(y).fill(x).reduce(suma)
+            return arreglo.fill(x).reduce(suma)
         }
 
         const division = (x, y, cociente) => {
